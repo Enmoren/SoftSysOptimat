@@ -1,18 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include <assert.h>
-#include <ctype.h>
-
-/* ctoi: Converts a character to integer.
-
-c: one of the characters '0' to '9'
-returns: integer 0 to 9
-*/
-int ctoi(char *c) {
-    assert(isdigit(*c));
-    return *c - '0';
-}
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +11,8 @@ int main(int argc, char *argv[])
   }
 
   // Create random matrix
-  int size = ctoi(argv[1]);
+  int size = atoi(argv[1]);
+  printf("Size is: %i\n", size );
   int random[size][size];
   int i, j;
 
