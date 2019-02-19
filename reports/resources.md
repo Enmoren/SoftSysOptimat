@@ -8,6 +8,7 @@ Optimat project.
 1. [Udemy Course on Scientific Computing](https://www.udemy.com/high-performance-scientific-computing-with-c/)
 2. [Wikipedia’s Matrix Multiplication Algorithms](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Algorithms_for_meshes)
 3. [Wikipedia’s Loop Nest Optimization](https://en.wikipedia.org/wiki/Loop_nest_optimization)
+4. [Linux Time Command](https://linuxize.com/post/linux-time-command/)
 
 ### Coding Resources
 1. [GitHub High-Performance Matrix Multiplication Tutorial](https://gist.github.com/nadavrot/5b35d44e8ba3dd718e595e40184d03f0)
