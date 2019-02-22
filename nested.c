@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include "generate_matrix.h"
 
-void matmul(int *res, int size){
+int* matmul(int *res, int size, int* random_matrix1, int* random_matrix2){
+  res = (int *)malloc(size * size * sizeof(int));
   for (int i=0; i<size; i++){
     for (int j=0; j<size; j++){
       *(res + i*size + j) = 0;
@@ -12,6 +13,7 @@ void matmul(int *res, int size){
       }
     }
   }
+  return res;
 }
 
 int main(int argc, char* argv[]){
@@ -20,28 +22,11 @@ int main(int argc, char* argv[]){
     return 1;
   }
   int size = atoi(argv[1]);
-  generate_matrix(size);
-  int *res = (int *)malloc(size * size * sizeof(int));
-  fprintf(stdout, "Matrix: \n");
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-      fprintf(stdout, "%i ", *(random_matrix1 + i*size + j));
-    }
-    fprintf(stdout, "\n");
-  }
+  int *random_matrix1 = generate_matrix(size);
+  int *random_matrix2 = generate_matrix(size);
+  int *res;
+  res = matmul(res, size, random_matrix1, random_matrix2);
 
-  fprintf(stdout, "Matrix: \n");
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-      fprintf(stdout, "%i ", *(random_matrix2 + i*size + j));
-    }
-    fprintf(stdout, "\n");
-  }
-
-  // double A[N][N] = {{1.0, 2.0},{3.0, 4.0}};
-  // double B[N][N] = {{2.0, 5.0},{6.0, 7.0}};
-  //double res[size][size];
-  matmul(res, size);
   // Print matrix to Standard Output
   fprintf(stdout, "Matrix: \n");
   for (int i = 0; i < size; i++) {
