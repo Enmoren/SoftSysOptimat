@@ -17,3 +17,6 @@ Optimat project.
 3. [Stack Overflow Generate Random Matrix](https://stackoverflow.com/questions/13589248/generating-random-matrix-in-c)
 4. [C/C++ Measuring Program Efficiency](https://stackoverflow.com/questions/35857689/c-c-measuring-program-efficiency)
 5. [Execution time of C program](https://stackoverflow.com/questions/5248915/execution-time-of-c-program)
+6. [Glow's Implementation of matmul](https://github.com/pytorch/glow/blob/master/lib/Backends/CPU/libjit/libjit_matmul.cpp)
+7. [Documentation for Clang methods used in High-Performance Matmul Tutorial (via Glow's Github)](https://github.com/pytorch/glow/blob/master/lib/Backends/CPU/libjit/libjit_defs.h)
+8. [Definition of mis-aligned pointers (since Clang performs "unaligned loads" from float pointers)](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0203g/Chdbiafd.html)
