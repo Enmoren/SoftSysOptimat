@@ -66,15 +66,14 @@ int** createArray(int matrixSize)
 int** subdivide(int** mat, int startrow, int endrow, int startcol, int endcol){
   int dimrow =  endrow - startrow;
   int dimcol = endcol - startcol;
-
+  printf("dimrow = %d, dimcol = %d\n", dimrow, dimcol);
   int** res = malloc(sizeof(int) * dimrow);
-  for (int i=startrow; i<endrow; i++){
+  for (int i=startrow; i<endrow; ++i){
       res[i] = malloc(dimcol*sizeof(int*));
-      for (int j=startcol; j<endcol; j++){
+      for (int j=startcol; j<endcol; ++j){
         int resi = i - startrow;
         int resj = j - startcol;
-        printf("resi %d, resj %d\n", resi, resj);
-        printf("i = %d, j = %d\n", i, j);
+        printf("i = %d, j = %d, mat[i][j] %d = \n", i, j, mat[i][j]);
         res[resi][resj] = mat[i][j];
       }
   }
@@ -108,6 +107,8 @@ int** base(int** a ,int** b){
   return res;
 }
 
+//Take the 4 submatrices (size n/2 x n/2) and pieces them into a newly allocated
+// n x n matrix
 int** merge(int** m11, int** m12, int** m21, int** m22, int matrixSize){
   int** res = malloc(sizeof(int)*matrixSize);
   int half = matrixSize/2;
@@ -165,7 +166,7 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
     printmat(m22, half);
     res = merge(m11, m12, m21, m22, matrixSize);
     int** mats[] = {m11, m12, m21, m22};
-    // freeMatrix(mats);
+    freeMatrix(mats);
   }
   return res;
 }
