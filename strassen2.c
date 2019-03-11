@@ -5,13 +5,12 @@
 
 static int gMatrixSize = 2;
 
-int** createArray(int matrixSize)
-{
+int** createArray(int matrixSize){
 
     int** rows = malloc(matrixSize*sizeof(int*));
     for (int i=0; i<matrixSize; ++i)
     {
-        rows[i] = malloc(matrixSize*sizeof(int*));
+        rows[i] = malloc(matrixSize*sizeof(int));
         for (int j =0; j<matrixSize; ++j)
         {
           rows[i][j] = rand() % 100;
@@ -20,6 +19,11 @@ int** createArray(int matrixSize)
     return rows;
 }
 
+void strassenMult(int **aArray, int **bArray, int ***aResultMatrix, int aSize){
+  if (aSize == 2){
+
+  }
+}
 
 int main(int argc, char* argv[]){
   int m1, m2, m3, m4 , m5, m6, m7;
@@ -65,5 +69,8 @@ int main(int argc, char* argv[]){
          }
        printf("\n");
    }
+   // free(a);
+   // free(b);
+   // free(c);
    return 0;
 }
