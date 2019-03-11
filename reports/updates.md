@@ -18,6 +18,6 @@ To understand different matrix multiplication optimization techniques, we went t
 
 Currently, we are working on our medium range goal, which is to implement a divide and conquer the matrix multiplication algorithm using threads. Hwei-Shin and Enmo have implemented the Strassen algorithm, which makes use of the concepts of MergeSort. This task will be considered complete when we have refactored the code to use threads. Cassandra has been working through the tutorial mentioned above on various optimization techniques and implemented matrix multiplication using register blocking. Lastly, Enmo wrote a script that allows us to plot the performance of different matrix multiplication algorithms and library functions, and used it to compare our various implementations. These two tasks have been completed (as of 3/11), the results of which can be viewed in the ***figures below.***
 ### Next Steps
-Read Head First C chapter 12 on multithreading (Cassandra, Enmo, Hwei-Shin)
-Implement parallelization for Strassen (using multithreading)
-Compare the performance of Strassen to Intel’s matrix multiplication library for small matrices
+1. Read Head First C chapter 12 on multithreading (Cassandra, Enmo, Hwei-Shin)
+2. Implement parallelization for Strassen (using multithreading)
+3. Compare the performance of Strassen to Intel’s matrix multiplication library for small matrices  
