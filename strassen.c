@@ -66,14 +66,13 @@ int** createArray(int matrixSize)
 int** subdivide(int** mat, int startrow, int endrow, int startcol, int endcol){
   int dimrow =  endrow - startrow;
   int dimcol = endcol - startcol;
-  printf("dimrow = %d, dimcol = %d\n", dimrow, dimcol);
   int** res = malloc(sizeof(int) * dimrow);
+
   for (int i=startrow; i<endrow; ++i){
-      res[i] = malloc(dimcol*sizeof(int*));
+      res[i-startrow] = malloc(dimcol*sizeof(int*));
       for (int j=startcol; j<endcol; ++j){
         int resi = i - startrow;
         int resj = j - startcol;
-        printf("i = %d, j = %d, mat[i][j] %d = \n", i, j, mat[i][j]);
         res[resi][resj] = mat[i][j];
       }
   }
@@ -115,13 +114,16 @@ int** merge(int** m11, int** m12, int** m21, int** m22, int matrixSize){
   for (int i=0; i<matrixSize; i++){
     res[i] = malloc(sizeof(int)*matrixSize);
     for (int j=0; j<matrixSize; j++){
-      if (i < half && j < half){
+      if (i < half && j < half){  //m11 vals
         res[i][j] = m11[i][j];
-      } else if (i < half && j >= half){
+      }
+      else if (i < half && j >= half){  //m12 vals
         res[i][j] = m12[i][j-half];
-      } else if (i >= half && j < half){
+      }
+      else if (i >= half && j < half){  //m21 vals
         res[i][j] = m21[i-half][j];
-      } else if (i >= half && j>= half){
+      }
+      else if (i >= half && j>= half){  //m22 vals
         res[i][j] = m22[i-half][j-half];
       }
     }
@@ -136,34 +138,33 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
     res = base(a, b);
     int** mats[] = {a, b};
     // freeMatrix(mats);
-  } else {
+  } else {  //split up matrix
     int half = matrixSize/2;
     int** m11 = recursive_strassen(subdivide(a, 0, half, 0, half),
                                   subdivide(b, 0, half, 0, half),
                                   half);
     printf("\nAfter subdivision algorithm, m11 \n");
     printmat(m11, half);
+
     int** m12 = recursive_strassen(subdivide(a, 0, half, half, matrixSize),
                                   subdivide(b, 0, half, half, matrixSize),
                                   half);
     printf("\nAfter subdivision algorithm, m12 \n");
     printmat(m12, half);
-    printf("start %d, end %d\n", half, matrixSize);
-    //TODO: seg fault right here, something appears to be off with dimensions?
+
     int** m21 = recursive_strassen(subdivide(a, half, matrixSize, 0, half),
                                   subdivide(b, half, matrixSize, 0, half),
                                   half);
     printf("\nAfter subdivision algorithm, m21 \n");
-    int** sub1 = subdivide(a, half, matrixSize, 0, half);
-    int** sub2 = subdivide(b, half, matrixSize, 0, half);
-    printmat(sub1, half);
-    printmat(sub2, half);
     printmat(m21, half);
+
     int** m22 = recursive_strassen(subdivide(a, half, matrixSize, half, matrixSize),
                                   subdivide(b, half, matrixSize, half, matrixSize),
                                   half);
     printf("\nAfter subdivision algorithm, m22 \n");
     printmat(m22, half);
+
+    //reassemble matrix
     res = merge(m11, m12, m21, m22, matrixSize);
     // int** mats[] = {m11, m12, m21, m22};
     // freeMatrix(mats);
