@@ -165,8 +165,8 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
     printf("\nAfter subdivision algorithm, m22 \n");
     printmat(m22, half);
     res = merge(m11, m12, m21, m22, matrixSize);
-    int** mats[] = {m11, m12, m21, m22};
-    freeMatrix(mats);
+    // int** mats[] = {m11, m12, m21, m22};
+    // freeMatrix(mats);
   }
   return res;
 }
