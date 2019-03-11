@@ -1,4 +1,4 @@
-## Optimat
+## Optimat Project Update
 #### Authors: Enmo Ren, Cassandra Overney, Hwei-Shin Harriman
 
 ##### Project Vision
