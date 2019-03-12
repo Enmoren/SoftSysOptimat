@@ -7,7 +7,9 @@
         //Added calls to free, but gives error of multiple attempts to free matrices
 //TODO: structs?
 //TODO: wrong answer in base case
-static int gMatrixSize = 4;
+//TODO: Free allocated matrice
+//TODO:
+static int gMatrixSize = 800;
 
 //Frees the allocated matrices in the list
 void freeMatrix(int*** m){

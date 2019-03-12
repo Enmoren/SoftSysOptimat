@@ -7,7 +7,7 @@ For this project, we will be implementing matrix multiplication using high-perfo
 - Gain exposure in optimization methods
 ##### Our individual learning goals include:
 - **Cassandra**: I love linear algebra, so I just want to apply what we are learning in class to my favorite math topic. I am also interested in tiling multiplication with loop nest optimization and potentially learning about mesh networks.
-- **Enmo**: I want to get better at programming in C, as well as familiarize myself with shared memory parallelism and distributed computing for optimization.
+- **Enmo**: I want to get better at programming in C, as well as familiarize myself with shared memory parallelism and distributed computing for optimization. By potentially implementing multi-thread processing for our program, I will gain a deeper understanding of the operating system. 
 - **Hwei-Shin**: I am interested in learning about memory parallelism and the tradeoffs of different matrix multiplication algorithms. I am also interested in gaining an intuitive, low-level understanding of why specific algorithms and optimization techniques are preferred. I want to gain experience writing clean, robust code in C. I would also like to gain some exposure to manipulating meshes using linear algebra if we have the time.
 
 We did some research on different matrix multiplication algorithms and found a very helpful [Github tutorial](https://gist.github.com/nadavrot/5b35d44e8ba3dd718e595e40184d03f0) on implementing matrix multiplication with C. We are planning to go through that tutorial as our first step, which includes basic matrix multiplication, caching, register blocking, and tiling.

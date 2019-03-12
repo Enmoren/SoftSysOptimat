@@ -1,5 +1,6 @@
 import sys
 import re
+import ast
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,14 +23,14 @@ def analysisArray(stringArray):
     for str in stringArray:
         split_array = str.split(' ')
         pArray.append(split_array[0])
-        gflops.append(split_array[1])
+        gflops.append(ast.literal_eval(split_array[1]))
     return pArray, gflops
 
 
 def plotData(pArray, gflopsArray):
 
     # Make a data frame
-    df=pd.DataFrame({'p': pArray, 'MMult0': gflopsArray[0],'MMult_1x4_9': gflopsArray[1], 'MMult_4x4_5': gflopsArray[2], })
+    df=pd.DataFrame({'p': pArray, 'MMult0_2': gflopsArray[0],'MMult_1x4_9': gflopsArray[1], 'MMult_4x4_5': gflopsArray[2], 'MMult_4x4_15_2.txt':gflopsArray[3]})
 
     # style
     plt.style.use('seaborn-darkgrid')
@@ -44,20 +45,21 @@ def plotData(pArray, gflopsArray):
         plt.plot(df['p'], df[column], marker='', color=palette(num), linewidth=1, alpha=0.9, label=column)
 
     # Add legend
-    plt.legend(loc=2, ncol=2)
+    plt.legend(loc=5, ncol=1)
 
     # Add titles
     plt.title("Matix performance", loc='center', fontsize=12, fontweight=0, color='orange')
-    plt.xlabel("P")
-    plt.ylabel("Gflops")
+    plt.xlabel("Leading Dimension")
+    plt.ylabel("Gflops/sec")
     plt.show()
 
 
 if __name__ == "__main__":
-    filenames = ['MMult0.txt','MMult_1x4_9.txt','MMult_4x4_5.txt']
+    filenames = ['MMult0_2.txt','MMult_1x4_9_2.txt','MMult_4x4_5_2.txt','MMult_4x4_15_2.txt']
     gflopsArray = []
     for file in filenames:
         generated_array = analysisStdin(file)
         pArray, gflops = analysisArray(generated_array)
         gflopsArray.append(gflops)
-    plotData(pArray, gflops)
+    print (gflopsArray)
+    plotData(pArray, gflopsArray)
