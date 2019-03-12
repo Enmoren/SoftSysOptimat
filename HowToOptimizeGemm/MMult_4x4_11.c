@@ -13,12 +13,15 @@
 /* Routine for computing C = A * B + C */
 
 void AddDot4x4( int, double *, int, double *, int, double *, int );
+void InnerKernel( int m, int n, int k, double *a, int lda,
+                                       double *b, int ldb,
+                                       double *c, int ldc );
 
 void MY_MMult( int m, int n, int k, double *a, int lda,
                                     double *b, int ldb,
                                     double *c, int ldc )
 {
-  int i, j, p, pb, ib;
+  int i, p, pb, ib;
 
   /* This time, we compute a mc x n block of C by a call to the InnerKernel */
 

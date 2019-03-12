@@ -14,6 +14,9 @@
 
 void AddDot4x4( int, double *, int, double *, int, double *, int );
 void PackMatrixA( int, double *, int, double * );
+void InnerKernel( int m, int n, int k, double *a, int lda,
+                                       double *b, int ldb,
+                                       double *c, int ldc );
 
 void MY_MMult( int m, int n, int k, double *a, int lda,
                                     double *b, int ldb,
