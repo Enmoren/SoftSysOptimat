@@ -12,6 +12,7 @@ Copyright: MIT License
 
 //TODO: wrong answer in base case
 //TODO: Test cases? and implement command line args to determine gMatrixSize?
+//TODO: More header comments for each function
 
 static int gMatrixSize = 8;
 
