@@ -18,10 +18,16 @@ To understand different matrix multiplication optimization techniques, we went t
 
 <p align="center"> <img src ="https://github.com/Enmoren/SoftSysOptimat/blob/master/HowToOptimizeGemm/performance_update.png"/> </p>
 
+<p align="center"> <img src ="https://github.com/Enmoren/SoftSysOptimat/blob/master/HowToOptimizeGemm/performance.png"/> </p>
+
 MMult0 corresponds to the naive approach. MMult_1x4_9 corresponds to using regular registers and pointers to compute 4 elements of the matrix C (AxB=C) at once. MMult_4x4_5 corresponds to computing a 4x4 block of C at a time without using registers or pointers. MMult_4x4_15 corresponds to the most optimized approach which includes 4x4 blocks, vector registers, pointers, and packing. For smaller matrices, the optimized matrix multiplication algorithms have better performance. Gflops corresponds to 10^6 floating point operations per second, so the higher the number, the better the performance is. Taking a closer look at the figure, it seems like MMult_4x4_15 does not have better performance compared to MMult_1x4_9 or MMult_4x4_5. According to the tutorial, a significant change in gflops should be observed. Possible explanations for this discrepancy include:
 - the Makefile (we wrote our own instead of directly copying the tutorial's, and there may be some important features that we did not use)
 - the way we run the tests (the gflops fluctuated a lot when we tested our functions under different conditions)
 - our processor (tutorial also uses Intel processor, so it shouldn't be the problem)
+
+Things to talk about for second performance figure:
+- the importance of make clean
+- changing the cflag from -o2 to -o0
 
 Currently, we are working on our medium range goal, which is to implement a divide and conquer the matrix multiplication algorithm using threads. Hwei-Shin and Enmo have implemented the Strassen algorithm, which makes use of the concepts of MergeSort. This task will be considered complete when we have refactored the code to use threads. Cassandra has been working through the tutorial mentioned above on various optimization techniques and implemented matrix multiplication using register blocking (whether it completely works is another question, reference figure). Lastly, Enmo wrote a script that allows us to plot the performance of different matrix multiplication algorithms and library functions and used it to compare our various implementations (reference figure above).
 
