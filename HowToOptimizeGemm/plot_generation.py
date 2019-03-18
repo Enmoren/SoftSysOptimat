@@ -29,7 +29,7 @@ def analysisArray(stringArray):
 def plotData(pArray, gflopsArray):
 
     # Make a data frame
-    df=pd.DataFrame({'p': pArray, 'MMult0': gflopsArray[0],'MMult_1x4_9': gflopsArray[1], 'MMult_4x4_5': gflopsArray[2], })
+    df=pd.DataFrame({'p': pArray, 'MMult0': gflopsArray[0],'MMult_1x4_9': gflopsArray[1], 'MMult_4x4_15': gflopsArray[2], })
 
     # style
     plt.style.use('seaborn-darkgrid')
@@ -54,7 +54,7 @@ def plotData(pArray, gflopsArray):
 
 
 if __name__ == "__main__":
-    filenames = ['MMult0.txt','MMult_1x4_9.txt','MMult_4x4_5.txt']
+    filenames = ['MMult0.txt','MMult_1x4_9.txt','MMult_4x4_15.txt']
     gflopsArray = []
     for file in filenames:
         generated_array = analysisStdin(file)
