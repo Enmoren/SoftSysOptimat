@@ -153,20 +153,20 @@ strass_arg* make_struct(int** a, int** b, int half, int quadrant){
   args->size = half;
   switch (quadrant){
     case 0:
-      args->a = subdivide(a, 0, 0, half);
-      args->b = subdivide(b, 0, 0, half);
+      args->a = subdivide(a, 0, 0, half); //A
+      args->b = subdivide(b, 0, 0, half);  //E
       break;
     case 1:
-      args->a = subdivide(a, 0, half, half);
-      args->b = subdivide(b, 0, half, half);
+      args->a = subdivide(a, 0, half, half);  //B
+      args->b = subdivide(b, 0, half, half);  //F
       break;
     case 2:
-      args->a = subdivide(a, half, 0, half);
-      args->b = subdivide(b, half, 0, half);
+      args->a = subdivide(a, half, 0, half);  //C
+      args->b = subdivide(b, half, 0, half);  //G
       break;
     case 3:
-      args->a = subdivide(a, half, half, half);
-      args->b = subdivide(b, half, half, half);
+      args->a = subdivide(a, half, half, half);  //D
+      args->b = subdivide(b, half, half, half);  //H
       break;
     default:
       fprintf(stderr, "Invalid case\n");
@@ -175,6 +175,98 @@ strass_arg* make_struct(int** a, int** b, int half, int quadrant){
   // printargs(args);
   return args;
 }
+
+int** plus(int** a, int** b, int size){
+  int** res = createArray(size);
+  for (int i=0; i<size; i++){
+    for (int j=0; j<size; j++){
+      res[i][j] = a[i][j] + b[i][j];
+    }
+  }
+  return res;
+}
+
+int** minus(int** a, int** b, int size){
+  int** res = createArray(size);
+  for (int i=0; i<size; i++){
+    for (int j=0; j<size; j++){
+      res[i][j] = a[i][j] - b[i][j];
+    }
+  }
+  return res;
+}
+
+strass_arg* make_args(strass_arg** subs, int n){
+  strass_arg* args = malloc(sizeof(strass_arg));
+  args->size = subs[0]->size;
+  int size = args->size;
+  int** A = subs[0]->a;
+  int** B = subs[1]->a;
+  int** C = subs[2]->a;
+  int** D = subs[3]->a;
+  int** E = subs[0]->b;
+  int** F = subs[1]->b;
+  int** G = subs[2]->b;
+  int** H = subs[3]->b;
+
+  switch (n){
+    case 0:
+      args->a = A;
+      args->b = minus(F, H, size);
+      break;
+    case 1:
+      args->a = plus(A, B, size);
+      args->b = H;
+      break;
+    case 2:
+      args->a = plus(C,D, size);
+      args->b = E;
+      break;
+    case 3:
+      args->a = D;
+      args->b = minus(G, E, size);
+      break;
+    case 4:
+      args->a = plus(A, D, size);
+      args->b = plus(E, H, size);
+      break;
+    case 5:
+      args->a = minus(B, D, size);
+      args->b = plus(G, H, size);
+      break;
+    case 6:
+      args->a = minus(A, C, size);
+      args->b = plus(E, F, size);
+      break;
+    default:
+      puts("Invalid multiplication case.");
+      break;
+  }
+  return args;
+}
+
+int*** make_q(int*** p, int size){
+  int*** q = malloc(sizeof(int**) * 4);
+  for (int i=0; i<4; i++){
+    q[i] = createArray(size);
+    switch (i){
+      case 0:
+        q[i] = plus(minus(plus(p[4], p[3], size), p[1], size), p[5], size);
+        break;
+      case 1:
+        q[i] = plus(p[0], p[1], size);
+        break;
+      case 2:
+        q[i] = plus(p[2], p[3], size);
+        break;
+      case 3:
+        q[i] = minus(minus(plus(p[0], p[4], size), p[2], size), p[6], size);
+        break;
+    }
+  }
+  return q;
+}
+
 //psuedo Mergesort implementation of Strassen algorithm
 void* parallel_strassen(void* ptr_array){
   strass_arg *args = ptr_array;
@@ -185,18 +277,20 @@ void* parallel_strassen(void* ptr_array){
 
   if (matrixSize <= 2){
     res = base(a, b);
-    freeStruct(ptr_array);
 
   } else {  //split up matrix into quadrants
     int half = matrixSize/2;
-    strass_arg* args_in[4];
+    strass_arg* args_in[7];
+    strass_arg* subdivided[4];
     pthread_t threads[7];
 
-    //Initialize threads
+    //Split a and b into 4 submatrices
     for (int n=0; n<4; n++){
-      args_in[n] = make_struct(a, b, half, n);
+      subdivided[n] = make_struct(a, b, half, n);
     }
-    for (int n =0; n< 7 ;n++){
+    //Initialize the threads
+    for (int n=0; n<7; n++){
+      args_in[n] = make_args(subdivided, n);
       if (pthread_create(&threads[n], NULL, parallel_strassen, args_in[n]) == -1){
         fprintf(stderr, "Can't create thread t[%d]\n", n);
       }
@@ -209,10 +303,21 @@ void* parallel_strassen(void* ptr_array){
       }
     }
 
+    //combine step for strassen.
+    int*** q = make_q((int***)res_array, half);
     //reassemble matrix
-    res = merge((int**)res_array[0], (int**)res_array[1], (int**)res_array[2], (int**)res_array[3], matrixSize);
+    res = merge(q[0], q[1], q[2], q[3], matrixSize);
   }
   return (void*)res;
+}
+void runStrassen(int size){
+    srand(time(NULL));
+    strass_arg in;
+    in.a = createArray(size);
+    in.b = createArray(size);
+    in.size = size;
+
+    int** res = (int**)parallel_strassen(void*)&in);
 }
 
 int main(int argc, char* argv[]){
