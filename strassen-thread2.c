@@ -190,20 +190,20 @@ void* parallel_strassen(void* ptr_array){
   } else {  //split up matrix into quadrants
     int half = matrixSize/2;
     strass_arg* args_in[4];
-    pthread_t threads[4];
+    pthread_t threads[7];
 
     //Initialize threads
     for (int n=0; n<4; n++){
       args_in[n] = make_struct(a, b, half, n);
-
+    }
+    for (int n =0; n< 7 ;n++){
       if (pthread_create(&threads[n], NULL, parallel_strassen, args_in[n]) == -1){
         fprintf(stderr, "Can't create thread t[%d]\n", n);
       }
     }
-
     //Wait for threads to complete
-    void* res_array[4];
-    for (int i=0; i<4; i++){
+    void* res_array[7];
+    for (int i=0; i<7; i++){
       if (pthread_join(threads[i], &res_array[i]) == -1){
         fprintf(stderr, "Can't join thread t[%d]\n", i);
       }
