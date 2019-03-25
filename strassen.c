@@ -9,7 +9,7 @@
 //TODO: wrong answer in base case
 //TODO: Free allocated matrice
 //TODO:
-static int gMatrixSize = 800;
+static int gMatrixSize = 2;
 
 //Frees the allocated matrices in the list
 void freeMatrix(int*** m){
@@ -30,9 +30,7 @@ void printmat(int** m, int dim){
   }
 }
 
-int** createArray(int matrixSize)
-{
-    // int* values = calloc(matrixSize*matrixSize, sizeof(int));
+int** createArray(int matrixSize){
     int** rows = malloc(matrixSize*sizeof(int*));
     for (int i=0; i<matrixSize; ++i)
     {
@@ -45,18 +43,6 @@ int** createArray(int matrixSize)
     return rows;
 }
 
-
-// int *generateArrayMatrix (int matrixSize){
-//   // int *matrix = (int*)malloc(matrixSize * matrixSize * sizeof(int));
-//   int *matrix = (int *)malloc(matrixSize * matrixSize * sizeof(int));
-//   srand((unsigned)time(NULL));
-//   for(int i = 0; i<matrixSize; i++){
-//       for(int j = 0; j<matrixSize; j++){
-//           matrix[i][j] = rand() % 100;
-//       }
-//   }
-//   return matrix;
-// }
 
 /*create matrix of size (n[start:end] x n[start:end]) by splitting mat
 //Called by recursive_strassen()
@@ -71,7 +57,7 @@ int** subdivide(int** mat, int startrow, int endrow, int startcol, int endcol){
   int** res = malloc(sizeof(int) * dimrow);
 
   for (int i=startrow; i<endrow; ++i){
-      res[i-startrow] = malloc(dimcol*sizeof(int*));
+      res[i-startrow] = malloc(sizeof(int*) * dimcol);
       for (int j=startcol; j<endcol; ++j){
         int resi = i - startrow;
         int resj = j - startcol;
@@ -92,18 +78,30 @@ int** base(int** a ,int** b){
     res[i] = malloc(dim * sizeof(int));
   }
 
-  m1= (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
-  m2= (a[1][0] + a[1][1]) * b[0][0];
-  m3= a[0][0] * (b[0][1] - b[1][1]);
-  m4= a[1][1] * (b[1][0] - b[0][0]);
-  m5= (a[0][0] + a[0][1]) * b[1][1];
-  m6= (a[1][0] - a[0][0]) * (b[0][0]+b[0][1]);
-  m7= (a[0][1] - a[1][1]) * (b[1][0]+b[1][1]);
+  // m1= (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
+  // m2= (a[1][0] + a[1][1]) * b[0][0];
+  // m3= a[0][0] * (b[0][1] - b[1][1]);
+  // m4= a[1][1] * (b[1][0] - b[0][0]);
+  // m5= (a[0][0] + a[0][1]) * b[1][1];
+  // m6= (a[1][0] - a[0][0]) * (b[0][0]+b[0][1]);
+  // m7= (a[0][1] - a[1][1]) * (b[1][0]+b[1][1]);
+  //
+  // res[0][0] = m1 + m4 - m5 + m7;
+  // res[0][1] = m3 + m5;
+  // res[1][0] = m2 + m4;
+  // res[1][1] = m1 - m2 + m3 + m6;
+  m1= a[0][0]*(b[0][1]-b[1][1]);
+  m2= (a[0][0]+a[0][1])*b[1][1];
+  m3= (a[1][0]+a[1][1])*b[0][0];
+  m4= a[1][1]*(b[1][0]-b[0][0]);
+  m5= (a[0][0]+a[1][1])*(b[0][0]+b[1][1]);
+  m6= (a[0][1]-a[1][1])*(b[1][0]+b[1][1]);
+  m7=(a[0][0]-a[1][0])*(b[0][0]+b[0][1]);
 
-  res[0][0] = m1 + m4 - m5 + m7;
-  res[0][1] = m3 + m5;
-  res[1][0] = m2 + m4;
-  res[1][1] = m1 - m2 + m3 + m6;
+  res[0][0] = m5 + m4 - m2 + m6;
+  res[0][1] = m1 + m2;
+  res[1][0] = m3 + m4;
+  res[1][1] = m1 + m5 - m3 - m7;
 
   return res;
 }
@@ -136,9 +134,10 @@ int** merge(int** m11, int** m12, int** m21, int** m22, int matrixSize){
 //psuedo Mergesort implementation of Strassen algorithm
 int** recursive_strassen(int** a, int** b, int matrixSize){
   int ** res;
-  if (matrixSize == 2){
+  if (matrixSize <= 2){
     res = base(a, b);
     int** mats[] = {a, b};
+    return res;
     // freeMatrix(mats);
   } else {  //split up matrix
     int half = matrixSize/2;
@@ -176,11 +175,11 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
 
 int main(int argc, char* argv[]){
   srand(time(NULL)); //randomize seed <-- should only be called once
+  int** a = createArray(gMatrixSize);
   int** b = createArray(gMatrixSize);
 
   // int m1, m2, m3, m4 , m5, m6, m7;
   // int c[2][2];
-  int** a = createArray(gMatrixSize);
   // printf("%")
   // printf("0x%" PRIXPTR "\n", (uintptr_t)a);
   // printf("0x%" PRIXPTR "\n", (uintptr_t)b);
@@ -215,7 +214,7 @@ int main(int argc, char* argv[]){
   // c[1][0] = m2 + m4;
   // c[1][1] = m1 - m2 + m3 + m6;
   // int** res = base(a, b);
-  int** res1 = recursive_strassen(a, b, 4);
+  int** res1 = recursive_strassen(a, b, gMatrixSize);
 
    printf("\nAfter multiplication using Strassen's algorithm \n");
    for(int i = 0; i < gMatrixSize ; i++){
