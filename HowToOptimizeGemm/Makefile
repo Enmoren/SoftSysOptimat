@@ -1,4 +1,4 @@
-NEW  := strassen-thread2
+NEW  := MMult0
 
 CC         := gcc
 LINKER     := $(CC)
@@ -21,7 +21,7 @@ TEST_OBJS  := test_MMult.o $(NEW).o
 
 test_MMult.x: $(TEST_OBJS) $(UTIL) parameters.h
 	$(LINKER) $(TEST_OBJS) $(UTIL) $(LDFLAGS) \
-  $(BLAS_LIB) -lpthread -o $(TEST_BIN) $@
+  $(BLAS_LIB) -o $(TEST_BIN) $@
 
 test_MMult: test_MMult.x $(TEST_OBJS) $(UTIL) parameters.h
 	./test_MMult.x
