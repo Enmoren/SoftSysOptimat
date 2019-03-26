@@ -1,14 +1,14 @@
+/*Implementation of Strassen algorithm (old version, not parallelized)
+
+gcc strassen.c -o strassen && ./strassen
+Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+Copyright: MIT License
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "generate_matrix.h"
 
-//TODO: free allocated matrices, consider int*** of int** (list of pointers to matrices)
-        //Added calls to free, but gives error of multiple attempts to free matrices
-//TODO: structs?
-//TODO: wrong answer in base case
-//TODO: Free allocated matrice
-//TODO:
 static int gMatrixSize = 2;
 
 //Frees the allocated matrices in the list
@@ -30,6 +30,11 @@ void printmat(int** m, int dim){
   }
 }
 
+/*
+  mallocs and generates 2D array containing pseudo-random integers
+  returns: ptr to 2D array
+  matrixSize: dimension of matrix to be generated
+*/
 int** createArray(int matrixSize){
     int** rows = malloc(matrixSize*sizeof(int*));
     for (int i=0; i<matrixSize; ++i)
@@ -49,7 +54,7 @@ int** createArray(int matrixSize){
 // mat = matrix to split
 // startrow, endrow = begin and end bounds of mat to be copied into res
 // startcol, endcol = begin and end bounds of mat to be copied into res
-// res = n/2 x n/2 matrix with appropriate vals copied in. Caller frees
+// res = n/2 x n/2 matrix with appropriate vals copied in.
 */
 int** subdivide(int** mat, int startrow, int endrow, int startcol, int endcol){
   int dimrow =  endrow - startrow;
@@ -68,28 +73,16 @@ int** subdivide(int** mat, int startrow, int endrow, int startcol, int endcol){
 }
 
 //Base case for calculating Strassen algorithm
-//Caller frees
 int** base(int** a ,int** b){
   int dim = 2;
   int m1, m2, m3, m4 , m5, m6, m7;
+
   //create result matrix
   int** res = malloc(dim * sizeof(int));
   for (int i=0; i<dim; i++){
     res[i] = malloc(dim * sizeof(int));
   }
 
-  // m1= (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
-  // m2= (a[1][0] + a[1][1]) * b[0][0];
-  // m3= a[0][0] * (b[0][1] - b[1][1]);
-  // m4= a[1][1] * (b[1][0] - b[0][0]);
-  // m5= (a[0][0] + a[0][1]) * b[1][1];
-  // m6= (a[1][0] - a[0][0]) * (b[0][0]+b[0][1]);
-  // m7= (a[0][1] - a[1][1]) * (b[1][0]+b[1][1]);
-  //
-  // res[0][0] = m1 + m4 - m5 + m7;
-  // res[0][1] = m3 + m5;
-  // res[1][0] = m2 + m4;
-  // res[1][1] = m1 - m2 + m3 + m6;
   m1= a[0][0]*(b[0][1]-b[1][1]);
   m2= (a[0][0]+a[0][1])*b[1][1];
   m3= (a[1][0]+a[1][1])*b[0][0];
@@ -138,7 +131,7 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
     res = base(a, b);
     int** mats[] = {a, b};
     return res;
-    // freeMatrix(mats);
+
   } else {  //split up matrix
     int half = matrixSize/2;
     int** m11 = recursive_strassen(subdivide(a, 0, half, 0, half),
@@ -167,8 +160,6 @@ int** recursive_strassen(int** a, int** b, int matrixSize){
 
     //reassemble matrix
     res = merge(m11, m12, m21, m22, matrixSize);
-    // int** mats[] = {m11, m12, m21, m22};
-    // freeMatrix(mats);
   }
   return res;
 }
@@ -177,12 +168,6 @@ int main(int argc, char* argv[]){
   srand(time(NULL)); //randomize seed <-- should only be called once
   int** a = createArray(gMatrixSize);
   int** b = createArray(gMatrixSize);
-
-  // int m1, m2, m3, m4 , m5, m6, m7;
-  // int c[2][2];
-  // printf("%")
-  // printf("0x%" PRIXPTR "\n", (uintptr_t)a);
-  // printf("0x%" PRIXPTR "\n", (uintptr_t)b);
 
   printf("Array a is at address: %p\n", *a);
   printf("Array b is at address: %p\n", *b);
@@ -201,19 +186,6 @@ int main(int argc, char* argv[]){
            printf("%d\t", b[i][j]);
   }
 
-  // m1= (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
-  // m2= (a[1][0] + a[1][1]) * b[0][0];
-  // m3= a[0][0] * (b[0][1] - b[1][1]);
-  // m4= a[1][1] * (b[1][0] - b[0][0]);
-  // m5= (a[0][0] + a[0][1]) * b[1][1];
-  // m6= (a[1][0] - a[0][0]) * (b[0][0]+b[0][1]);
-  // m7= (a[0][1] - a[1][1]) * (b[1][0]+b[1][1]);
-  //
-  // c[0][0] = m1 + m4- m5 + m7;
-  // c[0][1] = m3 + m5;
-  // c[1][0] = m2 + m4;
-  // c[1][1] = m1 - m2 + m3 + m6;
-  // int** res = base(a, b);
   int** res1 = recursive_strassen(a, b, gMatrixSize);
 
    printf("\nAfter multiplication using Strassen's algorithm \n");
