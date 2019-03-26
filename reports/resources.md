@@ -12,7 +12,9 @@ Optimat project.
 5. [Overview for High Performance Scientific Computing with C](https://www.youtube.com/watch?v=AN8TAfQC-k0&list=PLTgRMOcmRb3NE_YSIsXQGBMx5b77gQ5MK&index=1)
 
 ### Coding Resources
-1. [GitHub High-Performance Matrix Multiplication Tutorial](https://gist.github.com/nadavrot/5b35d44e8ba3dd718e595e40184d03f0)
+1. [C Implementation of Strassen Algorithm](https://github.com/sangeeths/stanford-algos-1/blob/master/strassen-recursive-matrix-multiplication.c)
+2. [How to Optimize Gemm Tutorial](https://github.com/flame/how-to-optimize-gemm)
+3. [GitHub High-Performance Matrix Multiplication Tutorial](https://gist.github.com/nadavrot/5b35d44e8ba3dd718e595e40184d03f0)
 2. [Stack Overflow Matrix Multiplication Thread](https://stackoverflow.com/questions/1907557/optimized-matrix-multiplication-in-c)
 3. [Stack Overflow Generate Random Matrix](https://stackoverflow.com/questions/13589248/generating-random-matrix-in-c)
 4. [C/C++ Measuring Program Efficiency](https://stackoverflow.com/questions/35857689/c-c-measuring-program-efficiency)
