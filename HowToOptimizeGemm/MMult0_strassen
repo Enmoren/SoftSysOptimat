@@ -1,0 +1,12 @@
+gcc -O0 -Wall -msse3 -c test_MMult.c -o test_MMult.o
+gcc test_MMult.o MMult0.o copy_matrix.o compare_matrices.o random_matrix.o dclock.o REF_MMult.o print_matrix.o -lm \
+   -o  test_MMult.x
+./test_MMult.x
+MY_MMult = [
+2 inf 0.000000e+00 
+4 inf 0.000000e+00 
+8 5.120000e-01 0.000000e+00 
+16 4.096000e-01 0.000000e+00 
+32 4.147848e-01 0.000000e+00 
+64 4.076890e-01 0.000000e+00 
+];
