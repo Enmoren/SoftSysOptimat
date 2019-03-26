@@ -1,6 +1,8 @@
 #include <stdio.h>
 // #include <malloc.h>
 #include <stdlib.h>
+#include <time.h>
+#include <pthread.h>
 
 #include "parameters.h"
 
@@ -9,6 +11,7 @@ void MY_MMult(int, int, int, double *, int, double *, int, double *, int );
 void copy_matrix(int, int, double *, int, double *, int );
 void random_matrix(int, int, double *, int);
 double compare_matrices( int, int, double *, int, double *, int );
+void MY_STRASSEN(int size);
 
 double dclock();
 
@@ -30,7 +33,7 @@ int main()
 
   printf( "MY_MMult = [\n" );
 
-  for ( p=PFIRST; p<=PLAST; p+=PINC ){
+  for ( p=SFIRST; p<=SLAST; p=p*PEACE){
     m = ( M == -1 ? p : M );
     n = ( N == -1 ? p : N );
     k = ( K == -1 ? p : K );
@@ -68,7 +71,8 @@ int main()
       /* Time your implementation */
       dtime = dclock();
 
-      MY_MMult( m, n, k, a, lda, b, ldb, c, ldc );
+      // MY_MMult( m, n, k, a, lda, b, ldb, c, ldc );
+      MY_STRASSEN(m);
 
       dtime = dclock() - dtime;
 
@@ -78,7 +82,8 @@ int main()
 	dtime_best = ( dtime < dtime_best ? dtime : dtime_best );
     }
 
-    diff = compare_matrices( m, n, c, ldc, cref, ldc );
+    // diff = compare_matrices( m, n, c, ldc, cref, ldc );
+    diff = 0;
 
     printf( "%d %le %le \n", p, gflops / dtime_best, diff );
     fflush( stdout );

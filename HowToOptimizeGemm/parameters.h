@@ -5,6 +5,9 @@ The below parameters set this range of values that p takes on
 #define PFIRST 40
 #define PLAST  800
 #define PINC   40
+#define SFIRST 2
+#define SLAST  1024
+#define PEACE 2
 
 /*
 In the test driver, the m, n, and k dimensions are set to the below

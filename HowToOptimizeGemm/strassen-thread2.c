@@ -9,11 +9,9 @@ Copyright: MIT License
 #include <time.h>
 #include <pthread.h>
 
-//TODO: wrong answer in base case
-//TODO: Test cases? and implement command line args to determine gMatrixSize?
 //TODO: More header comments for each function
 
-static int gMatrixSize = 4;
+static int gMatrixSize = 64;
 
 typedef struct {
   int** a;
@@ -218,7 +216,7 @@ strass_arg* make_args(strass_arg** subs, int n){
       args->b = H;
       break;
     case 2:
-      args->a = plus(C,D, size);
+      args->a = plus(C, D, size);
       args->b = E;
       break;
     case 3:
@@ -309,6 +307,7 @@ void* parallel_strassen(void* ptr_array){
   }
   return (void*)res;
 }
+
 void MY_STRASSEN(int size){
     srand(time(NULL));
     strass_arg in;
@@ -316,7 +315,7 @@ void MY_STRASSEN(int size){
     in.b = createArray(size);
     in.size = size;
 
-    int** res = (int**)parallel_strassen(void*)&in);
+    int** res = (int**)parallel_strassen((void*)&in);
 }
 
 int main(int argc, char* argv[]){

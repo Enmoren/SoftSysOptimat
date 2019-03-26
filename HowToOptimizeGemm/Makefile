@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-NEW  := MMult_1x4_9
-=======
-NEW  := MMult_4x4_5
->>>>>>> 6a036a4c2e1a4c59f2d23e86d3d4cf4c86000397
+NEW  := strassen-thread2
 
 CC         := gcc
 LINKER     := $(CC)
@@ -25,7 +21,7 @@ TEST_OBJS  := test_MMult.o $(NEW).o
 
 test_MMult.x: $(TEST_OBJS) $(UTIL) parameters.h
 	$(LINKER) $(TEST_OBJS) $(UTIL) $(LDFLAGS) \
-  $(BLAS_LIB) -o $(TEST_BIN) $@
+  $(BLAS_LIB) -lpthread -o $(TEST_BIN) $@
 
 test_MMult: test_MMult.x $(TEST_OBJS) $(UTIL) parameters.h
 	./test_MMult.x
