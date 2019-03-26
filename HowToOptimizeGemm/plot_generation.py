@@ -30,7 +30,7 @@ def analysisArray(stringArray):
 def plotData(pArray, gflopsArray):
 
     # Make a data frame
-    df=pd.DataFrame({'p': pArray, 'MMult_4x4': gflopsArray[0],'MMult_1x4': gflopsArray[1], 'MMult0': gflopsArray[2]})
+    df=pd.DataFrame({'p': pArray, 'MMult_4x4_15': gflopsArray[0],'MMult_1x4_9': gflopsArray[1],'MMult0': gflopsArray[2]})
 
     # style
     # plt.style.use('seaborn-darkgrid')
@@ -51,7 +51,7 @@ def plotData(pArray, gflopsArray):
     # Add titles
     plt.title("Matrix Multiplication Performance", loc='center', fontsize=14, fontweight=0, color='black')
     plt.xlabel("Leading Dimension", fontsize=12, labelpad=10)
-    plt.ylabel("Gflops/sec", fontsize=12, labelpad=10)
+    plt.ylabel("Gflop/sec", fontsize=12, labelpad=10)
     plt.show()
 
 

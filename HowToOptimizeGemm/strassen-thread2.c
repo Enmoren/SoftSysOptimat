@@ -11,7 +11,7 @@ Copyright: MIT License
 
 //TODO: More header comments for each function
 
-static int gMatrixSize = 64;
+static int gMatrixSize = 2;
 
 typedef struct {
   int** a;
@@ -318,24 +318,24 @@ void MY_STRASSEN(int size){
     int** res = (int**)parallel_strassen((void*)&in);
 }
 
-int main(int argc, char* argv[]){
-  srand(time(NULL)); //randomize seed <-- should only be called once
-
-  //initialize original struct
-  strass_arg in;
-  in.a = createArray(gMatrixSize);
-  in.b = createArray(gMatrixSize);
-  in.size = gMatrixSize;
-
-  printf("Array a is at address: %p\n", &in.a);
-  printf("Array b is at address: %p\n", &in.b);
-  printargs(&in); //print values of initial struct
-
-  //Recursive, parallelized implementation of Strassen matmul
-  int** res1 = (int**)parallel_strassen((void*)&in);
-
-   printf("\nAfter multiplication using Strassen's algorithm \n");
-   printmat(res1, gMatrixSize);
-
-   return 0;
-}
+// int main(int argc, char* argv[]){
+//   srand(time(NULL)); //randomize seed <-- should only be called once
+//
+//   //initialize original struct
+//   strass_arg in;
+//   in.a = createArray(gMatrixSize);
+//   in.b = createArray(gMatrixSize);
+//   in.size = gMatrixSize;
+//
+//   printf("Array a is at address: %p\n", &in.a);
+//   printf("Array b is at address: %p\n", &in.b);
+//   printargs(&in); //print values of initial struct
+//
+//   //Recursive, parallelized implementation of Strassen matmul
+//   int** res1 = (int**)parallel_strassen((void*)&in);
+//
+//    printf("\nAfter multiplication using Strassen's algorithm \n");
+//    printmat(res1, gMatrixSize);
+//
+//    return 0;
+// }
