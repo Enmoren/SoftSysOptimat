@@ -1,4 +1,4 @@
-NEW  := MMult0
+NEW  := MMult_4x4_15
 
 CC         := gcc
 LINKER     := $(CC)
