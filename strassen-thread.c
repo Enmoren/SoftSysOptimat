@@ -9,7 +9,7 @@ Copyright: MIT License
 #include <time.h>
 #include <pthread.h>
 
-/*
+/* Visual representation of Strassen algorithm for reference:
 X           Y                X*Y
  +-------+   +-------+     +-------+-------+
  | A | B |   | E | F |     | AE+BG | AF+BH |
