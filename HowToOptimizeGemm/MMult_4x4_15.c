@@ -1,3 +1,11 @@
+/* This version slightly modifies MMult_4x4_14 by calling PackMatrixB
+  only on the first iteration of a InnerKernel function call
+  This program is the most optimized version
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]

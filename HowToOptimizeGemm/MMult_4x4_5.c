@@ -1,3 +1,9 @@
+/* This version puts all the AddDot loops in AddDot4x4 into one loop
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]

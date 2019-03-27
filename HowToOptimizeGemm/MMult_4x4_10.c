@@ -1,3 +1,9 @@
+/* This version introduces vector registers
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #include <mmintrin.h>

@@ -1,3 +1,11 @@
+/* This version makes several minor changed to MMult_4x4_12 by
+  using the pointers provided by PackMatrixA and only calling
+  PackMatrixA when the outer loop counter in InnerKernel is 0
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]

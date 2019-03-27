@@ -1,3 +1,10 @@
+# Makefile to run matrix multiplication algoirthms
+# make clean
+# make
+# make test_MMult
+# Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+# Copyright: MIT License
+
 NEW  := MMult_4x4_15
 
 CC         := gcc

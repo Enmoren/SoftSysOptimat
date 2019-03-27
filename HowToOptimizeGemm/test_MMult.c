@@ -1,3 +1,15 @@
+/* Runs a test by timing matrix multiplication for MY_MMult defined
+  in Makefile, random matrices are generated with varying sizes and
+  multiplied, results from MY_MMult and REF_MMult are compared for accuracy,
+  gflop/sec and accuracy printed to Standard Output
+
+  Commented sections refer to testing MY_STRASSEN
+
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 #include <stdio.h>
 // #include <malloc.h>
 #include <stdlib.h>

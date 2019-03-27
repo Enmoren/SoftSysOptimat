@@ -1,3 +1,9 @@
+/* Used to time matrix mulitplication operation
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 #include <sys/time.h>
 #include <time.h>
 
@@ -21,4 +27,3 @@ double dclock()
 
         return the_time;
 }
-

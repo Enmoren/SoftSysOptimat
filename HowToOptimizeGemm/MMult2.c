@@ -1,3 +1,11 @@
+/* This version calls AddDot multiple times in the second loop within
+  the naive approach, so it is not just updating C(i,j) but also
+  C(i,j+1), C(i,j+2), C(i,j+3) (C=AxB)
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]

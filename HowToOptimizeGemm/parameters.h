@@ -1,3 +1,8 @@
+/* Header file defining global variables 
+Copied from How to Optimize Gemm Tutorial
+  created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /*
 In the test driver, there is a loop "for ( p=PFIRST; p<= PLAST; p+= PINC )"
 The below parameters set this range of values that p takes on

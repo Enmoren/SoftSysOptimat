@@ -1,3 +1,10 @@
+/* Naive approach of matrix multiplication used to compare
+  to optimized approaches
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]
@@ -6,7 +13,7 @@
 
 /* Routine for computing C = A * B + C */
 
-void REF_MMult( int m, int n, int k, double *a, int lda, 
+void REF_MMult( int m, int n, int k, double *a, int lda,
                                     double *b, int ldb,
                                     double *c, int ldc )
 {
@@ -20,6 +27,3 @@ void REF_MMult( int m, int n, int k, double *a, int lda,
     }
   }
 }
-
-
-  

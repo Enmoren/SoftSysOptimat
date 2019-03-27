@@ -1,3 +1,10 @@
+/* This version places the innermost loop from the naive approach into a
+  separate function called AddDot
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]
@@ -8,7 +15,7 @@
 
 void AddDot( int, double *, int, double *, double * );
 
-void MY_MMult( int m, int n, int k, double *a, int lda, 
+void MY_MMult( int m, int n, int k, double *a, int lda,
                                     double *b, int ldb,
                                     double *c, int ldc )
 {
@@ -35,10 +42,10 @@ void AddDot( int k, double *x, int incx,  double *y, double *gamma )
 
      Here x starts at location x with increment (stride) incx and y starts at location y and has (implicit) stride of 1.
   */
- 
+
   int p;
 
   for ( p=0; p<k; p++ ){
-    *gamma += X( p ) * y[ p ];     
+    *gamma += X( p ) * y[ p ];
   }
 }

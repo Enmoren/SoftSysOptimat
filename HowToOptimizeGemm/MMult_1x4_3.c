@@ -1,3 +1,10 @@
+/* Compute matrix C 4 elements at a time in a subroutine called AddDot1x4,
+  which performs four inner products at a time
+    Authors: Hwei-Shin Harriman, Enmo Ren, and Cassandra Overney
+    Adapted from How to Optimize Gemm Tutorial
+      created by Prof. Robert van de Geijn and Jianyu Huang
+*/
+
 /* Create macros so that the matrices are stored in column-major order */
 
 #define A(i,j) a[ (j)*lda + (i) ]
