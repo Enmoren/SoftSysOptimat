@@ -45,12 +45,12 @@ typedef union {
 } v2df_t;
 ```
 The double array allows us to access the two double precision numbers stored by the vector register. `__m128d` is a data type that the compiler uses to store data in a XMM 128 bit register. It is part of the Streaming SIMD Extensions libraries. In `MMult_4x4_10.c`, vector registers are created when computing every 4x4 block of matrix C. If our 4x4 block matrix looks like:
-
+```
 C(0,0), C(0,1), C(0,2), C(0,3).
 C(1,0), C(1,1), C(1,2), C(1,3).
 C(2,0), C(2,1), C(2,2), C(2,3).
 C(3,0), C(3,1), C(3,2), C(3,3).
-
+```
 If we want to find C(0,0) and C(1,0) using vector registers, we would execute the following procedure:
 1. Instantiate vector register variables
 ```c
