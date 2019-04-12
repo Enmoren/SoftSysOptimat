@@ -1,4 +1,4 @@
-## Optimat Project Report
+## Optimat: Exploring High-Performance Matrix Multiplication in C
 #### Authors: Enmo Ren, Cassandra Overney, Hwei-Shin Harriman
 
 ### Project Vision
